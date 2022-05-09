@@ -1,4 +1,4 @@
-package ieslvareda.model;
+package es.ieslvareda.model;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 import es.ieslvareda.properties.MyConfig;

@@ -1,4 +1,4 @@
-package ieslvareda.properties;
+package es.ieslvareda.properties;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

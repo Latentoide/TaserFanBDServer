@@ -1,4 +1,4 @@
-package ieslvareda.model;
+package es.ieslvareda.model;
 
 public class Authentification {
     String email;

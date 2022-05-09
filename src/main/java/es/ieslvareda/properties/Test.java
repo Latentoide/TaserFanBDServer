@@ -1,4 +1,4 @@
-package ieslvareda.properties;
+package es.ieslvareda.properties;
 
 import es.ieslvareda.model.Model;
 

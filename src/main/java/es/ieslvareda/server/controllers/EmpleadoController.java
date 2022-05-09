@@ -1,4 +1,4 @@
-package ieslvareda.server.controllers;
+package es.ieslvareda.server.controllers;
 
 import es.ieslvareda.model.*;
 import es.ieslvareda.server.model.*;

@@ -1,4 +1,4 @@
-package ieslvareda.model;
+package es.ieslvareda.model;
 
 
 

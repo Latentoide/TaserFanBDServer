@@ -1,4 +1,4 @@
-package ieslvareda.model;
+package es.ieslvareda.model;
 
 import es.ieslvareda.server.controllers.PersonController;
 import es.ieslvareda.server.model.IPersonService;
