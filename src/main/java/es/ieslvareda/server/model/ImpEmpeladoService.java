@@ -6,10 +6,9 @@ import es.ieslvareda.model.MyDataSource;
 import es.ieslvareda.model.Result;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ImpEmpeladoService implements  IEmpleadoService{
     @Override
@@ -43,5 +42,33 @@ public class ImpEmpeladoService implements  IEmpleadoService{
     }
 
     @Override
+    public List<Empleado> getAll() {
+        List<Empleado> empleadoList = new ArrayList<>();
+        DataSource ds = MyDataSource.getMyOracleDataSource();
+
+        try (Connection con = ds.getConnection();
+             Statement st = con.createStatement();
+             ResultSet resultSet = st.executeQuery("select * from ciudad"))
+        {
+            String nombre;
+            String apellidos;
+            String domiciolio;
+            String codigoPostal;
+            String dni;
+            while(resultSet.next()){
+                apellidos = resultSet.getString("apellidos");
+                domiciolio = resultSet.getString("domicilio");
+                nombre = resultSet.getString("nombre");
+                codigoPostal = resultSet.getString("cp");
+                dni = resultSet.getString("dni");
+
+                empleadoList.add(new Empleado(nombre, apellidos, domiciolio, codigoPostal, dni));
+            }
+        }catch(SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return empleadoList;
+    }
+
 
 }
