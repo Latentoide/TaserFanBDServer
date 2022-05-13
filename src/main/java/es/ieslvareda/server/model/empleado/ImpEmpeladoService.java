@@ -1,4 +1,4 @@
-package es.ieslvareda.server.model;
+package es.ieslvareda.server.model.empleado;
 
 import es.ieslvareda.model.Authentification;
 import es.ieslvareda.model.Empleado;
@@ -48,7 +48,7 @@ public class ImpEmpeladoService implements  IEmpleadoService{
 
         try (Connection con = ds.getConnection();
              Statement st = con.createStatement();
-             ResultSet resultSet = st.executeQuery("select * from ciudad"))
+             ResultSet resultSet = st.executeQuery("select * from empleado"))
         {
             String nombre;
             String apellidos;

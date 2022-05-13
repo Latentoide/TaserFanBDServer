@@ -1,4 +1,4 @@
-package es.ieslvareda.server.model;
+package es.ieslvareda.server.model.empleado;
 
 import es.ieslvareda.model.Authentification;
 import es.ieslvareda.model.Empleado;

@@ -2,6 +2,8 @@ package es.ieslvareda.server.controllers;
 
 import es.ieslvareda.model.*;
 import es.ieslvareda.server.model.*;
+import es.ieslvareda.server.model.empleado.IEmpleadoService;
+import es.ieslvareda.server.model.empleado.ImpEmpeladoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Request;
@@ -29,4 +31,6 @@ public class EmpleadoController {
         }
         return result;
     }
+
+
 }
