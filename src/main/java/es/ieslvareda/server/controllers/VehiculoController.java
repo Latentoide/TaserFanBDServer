@@ -18,25 +18,11 @@ import java.util.List;
 public class VehiculoController {
     static Logger logger = LoggerFactory.getLogger(EmpleadoController.class);
     private static IVehiculoService service = new ImpVehiculoService();
-    private static JsonTransformer<Authentification> jsonTransformer = new JsonTransformer<>();
+    private static JsonTransformer<Vehiculo> jsonTransformer = new JsonTransformer<>();
 
-    public static List<Vehiculo> getAllCoches(Request req, Response res){
+    public static List<Vehiculo> getAllVehicles(Request req, Response res){
         logger.info("Receiving request for all vehiculos");
-        return service.getAll(Tablas.COCHE);
+        return service.getAll();
     }
 
-    public static List<Vehiculo> getAllMotos(Request req, Response res){
-        logger.info("Receiving request for all vehiculos");
-        return service.getAll(Tablas.MOTO);
-    }
-
-    public static List<Vehiculo> getAllPatinete(Request req, Response res){
-        logger.info("Receiving request for all vehiculos");
-        return service.getAll(Tablas.PATINETE);
-    }
-
-    public static List<Vehiculo> getAllBiciletas(Request req, Response res){
-        logger.info("Receiving request for all vehiculos");
-        return service.getAll(Tablas.BICICLETA);
-    }
 }

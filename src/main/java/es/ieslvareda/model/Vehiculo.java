@@ -10,11 +10,11 @@ public class Vehiculo {
     private String color;
     private float bateria;
     private String estado;
-    private float idCarnet;
+    private int idCarnet;
     private Date date;
     private Tablas tipo;
 
-    public Vehiculo(String matricula, float precioHora, String marca, String descripcion, String color, float bateria, String estado, float idCarnet, Date date, Tablas tipo) {
+    public Vehiculo(String matricula, float precioHora, String marca, String descripcion, String color, float bateria, String estado, int idCarnet, Date date, Tablas tipo) {
         this.matricula = matricula;
         this.precioHora = precioHora;
         this.marca = marca;
@@ -24,6 +24,15 @@ public class Vehiculo {
         this.estado = estado;
         this.idCarnet = idCarnet;
         this.date = date;
+        this.tipo = tipo;
+    }
+
+    public Vehiculo(String matricula,float precioHora,String marca,String color,String estado,int idCarnet, Tablas tipo){
+        this.matricula = matricula;
+        this.precioHora = precioHora;
+        this.marca = marca;
+        this.color = color;
+        this.idCarnet = idCarnet;
         this.tipo = tipo;
     }
 
@@ -83,12 +92,28 @@ public class Vehiculo {
         this.estado = estado;
     }
 
-    public float getIdCarnet() {
+    public int getIdCarnet() {
         return idCarnet;
     }
 
-    public void setIdCarnet(float idCarnet) {
+    public void setIdCarnet(int idCarnet) {
         this.idCarnet = idCarnet;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Tablas getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tablas tipo) {
+        this.tipo = tipo;
     }
 
     @Override

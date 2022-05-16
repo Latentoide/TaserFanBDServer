@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IVehiculoService {
     List<Vehiculo> getAll(Tablas tablas);
+    List<Vehiculo> getAll();
 }

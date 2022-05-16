@@ -5,9 +5,27 @@ import es.ieslvareda.model.*;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ImpVehiculoService implements IVehiculoService{
+    @Override
+    public List<Vehiculo> getAll(){
+        List<Vehiculo> allVels = new LinkedList<>();
+        Tablas tipos[] = {
+                Tablas.COCHE,
+                Tablas.MOTO,
+                Tablas.PATINETE,
+                Tablas.BICICLETA
+        };
+        for (int i = 0; i < 4; i++) {
+            for(Vehiculo vel : getAll(tipos[i])){
+                allVels.add(vel);
+            }
+        }
+        return allVels;
+    }
+
     @Override
     public List<Vehiculo> getAll(Tablas tabla) {
         List<Vehiculo> vehiculoArrayList = new ArrayList<>();
@@ -20,28 +38,18 @@ public class ImpVehiculoService implements IVehiculoService{
             String matricula;
             float precioHora;
             String marca;
-            String descripcion;
             String color;
-            float bateria;
             String estado;
-            float idCarnet;
-            Date date;
-            float numPlazas;
-            float numPuertas;
+            int idCarnet;
             while(resultSet.next()){
                 matricula = resultSet.getString("MATRICULA");
                 precioHora = resultSet.getFloat("precioHora");
                 marca = resultSet.getString("marca");
-                descripcion = resultSet.getString("descripcion");
                 color = resultSet.getString("color");
-                bateria = resultSet.getFloat("bateria");
                 estado = resultSet.getString("estado");
-                idCarnet = resultSet.getFloat("idcarnet");
-                date = resultSet.getDate("fechaadq");
-                numPlazas = resultSet.getFloat("numplazas");
-                numPuertas = resultSet.getFloat("numpuertas");
+                idCarnet = resultSet.getInt("idcarnet");
 
-                vehiculoArrayList.add(new Coche(matricula, precioHora, marca, descripcion, color, bateria, estado, idCarnet, date, tabla ,numPlazas, numPuertas));
+                vehiculoArrayList.add(new Vehiculo(matricula, precioHora, marca, color, estado, idCarnet, tabla));
             }
         }catch(SQLException throwables){
             throwables.printStackTrace();
@@ -49,4 +57,6 @@ public class ImpVehiculoService implements IVehiculoService{
 
         return vehiculoArrayList;
     }
+
+
 }

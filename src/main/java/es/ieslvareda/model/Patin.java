@@ -6,7 +6,7 @@ public class Patin extends Vehiculo{
     private float numRuedas;
     private float tamanyo;
 
-    public Patin(String matricula, float precioHora, String marca, String descripcion, String color, float bateria, String estado, float idCarnet, Date date, Tablas tablas, float numRuedas, float tamanyo) {
+    public Patin(String matricula, float precioHora, String marca, String descripcion, String color, float bateria, String estado, int idCarnet, Date date, Tablas tablas, float numRuedas, float tamanyo) {
         super(matricula, precioHora, marca, descripcion, color, bateria, estado, idCarnet, date, tablas);
         this.numRuedas = numRuedas;
         this.tamanyo = tamanyo;

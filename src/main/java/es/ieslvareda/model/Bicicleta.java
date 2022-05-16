@@ -5,16 +5,16 @@ import java.sql.Date;
 public class Bicicleta extends Vehiculo{
     private String tipo;
 
-    public Bicicleta(String matricula, float precioHora, String marca, String descripcion, String color, float bateria, String estado, float idCarnet, Date date, Tablas tablas, String tipo) {
+    public Bicicleta(String matricula, float precioHora, String marca, String descripcion, String color, float bateria, String estado, int idCarnet, Date date, Tablas tablas, String tipo) {
         super(matricula, precioHora, marca, descripcion, color, bateria, estado, idCarnet, date, tablas);
         this.tipo = tipo;
     }
 
-    public String getTipo() {
+    public String getTipoBic() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipoBic(String tipo) {
         this.tipo = tipo;
     }
 
