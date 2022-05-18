@@ -40,14 +40,14 @@ public class ImpVehiculoService implements IVehiculoService{
             String marca;
             String color;
             String estado;
-            int idCarnet;
+            String idCarnet;
             while(resultSet.next()){
                 matricula = resultSet.getString("MATRICULA");
                 precioHora = resultSet.getFloat("precioHora");
                 marca = resultSet.getString("marca");
                 color = resultSet.getString("color");
                 estado = resultSet.getString("estado");
-                idCarnet = resultSet.getInt("idcarnet");
+                idCarnet = resultSet.getString("idcarnet");
 
                 vehiculoArrayList.add(new Vehiculo(matricula, precioHora, marca, color, estado, idCarnet, tabla));
             }

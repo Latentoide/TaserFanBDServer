@@ -19,6 +19,7 @@ public class CocheController{
     private static JsonTransformer<Coche> jsonTransformer = new JsonTransformer<>();
 
     public static Result insertarCoche(Request req, Response res){
+        logger.info("Peticion para añadir coche");
         String body = req.body();
 
         Coche c = jsonTransformer.getObjet(body, Coche.class);

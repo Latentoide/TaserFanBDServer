@@ -5,28 +5,31 @@ import es.ieslvareda.model.Coche;
 import es.ieslvareda.model.MyDataSource;
 import es.ieslvareda.model.Result;
 import es.ieslvareda.model.Tablas;
+import es.ieslvareda.server.controllers.CocheController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 
 public class ImpCocheService implements ICocheService{
-
+    static Logger logger = LoggerFactory.getLogger(ImpCocheService.class);
     @Override
-    public Result<Coche> createCoche(String matricula, float precioHora, String marca, String descripcion, String color, float bateria, Date fechaadq, String estado, int idCarnet, float numPlazas, float numPuertas) {
+    public Result<Coche> createCoche(Coche c) {
 
         String sql = "{call GESTIONVEHICULOS.insertarCoche(?,?,?,?,?,?,?,?,?,?,?)}";
         boolean resultado = false;
         try(Connection con = MyDataSource.getMyOracleDataSource().getConnection();
             CallableStatement cs = con.prepareCall(sql)) {
 
-            cs.setString(1,matricula);
-            cs.setFloat(2,precioHora);
-            cs.setString(3,marca);
-            cs.setString(4, descripcion);
-            cs.setString(5, color);
-            cs.setFloat(6, bateria);
-            cs.setDate(7, fechaadq);
-            cs.setString(8, estado);
-            cs.setInt(9, idCarnet);
+            cs.setString(1,c.getMatricula());
+            cs.setFloat(2,c.getPrecioHora());
+            cs.setString(3,c.getMarca());
+            cs.setString(4, c.getDescripcion());
+            cs.setString(5, c.getColor());
+            cs.setFloat(6, c.getBateria());
+            cs.setDate(7, c.getDate());
+            cs.setString(8, c.getEstado());
+            cs.setString(9, c.getIdCarnet());
             cs.setFloat(10, numPlazas);
             cs.setFloat(11, numPuertas);
 
@@ -43,7 +46,7 @@ public class ImpCocheService implements ICocheService{
     }
 
     @Override
-    public Result<Coche> updateCoche(String matricula, float precioHora, String marca, String descripcion, String color, float bateria, Date fechaadq, String estado, int idCarnet, float numPlazas, float numPuertas) {
+    public Result<Coche> updateCoche(String matricula, float precioHora, String marca, String descripcion, String color, float bateria, Date fechaadq, String estado, String idCarnet, float numPlazas, float numPuertas) {
         String sql = "{call GESTIONVEHICULOS.updateCoche(?,?,?,?,?,?,?,?,?,?,?)}";
 
         boolean resultado = false;
@@ -58,7 +61,7 @@ public class ImpCocheService implements ICocheService{
             cs.setFloat(6, bateria);
             cs.setDate(7, fechaadq);
             cs.setString(8, estado);
-            cs.setInt(9, idCarnet);
+            cs.setString(9, idCarnet);
             cs.setFloat(10, numPlazas);
             cs.setFloat(11, numPuertas);
 
@@ -109,7 +112,7 @@ public class ImpCocheService implements ICocheService{
             cs.registerOutParameter(6, Types.FLOAT);
             cs.registerOutParameter(7, Types.DATE);
             cs.registerOutParameter(8, Types.VARCHAR);
-            cs.registerOutParameter(9, Types.FLOAT);
+            cs.registerOutParameter(9, Types.VARCHAR);
             cs.registerOutParameter(10, Types.FLOAT);
             cs.registerOutParameter(11, Types.FLOAT);
 
@@ -123,7 +126,7 @@ public class ImpCocheService implements ICocheService{
             float v_bateria = cs.getFloat(6);
             Date date = cs.getDate(7);
             String v_estado = cs.getString(8);
-            int v_idCarnet = cs.getInt(9);
+            String v_idCarnet = cs.getString(9);
             float v_numPlazas = cs.getFloat(10);
             float v_numPuertas = cs.getFloat(11);
             Tablas tipo = Tablas.COCHE;

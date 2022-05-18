@@ -6,7 +6,7 @@ public class Coche extends Vehiculo{
     private float numPlazas;
     private float numPuertas;
 
-    public Coche(String matricula, float precioHora, String marca, String descripcion, String color, float bateria, String estado, int idCarnet, Date date, Tablas tablas, float numPlazas, float numPuertas) {
+    public Coche(String matricula, float precioHora, String marca, String descripcion, String color, float bateria, String estado, String idCarnet, Date date, Tablas tablas, float numPlazas, float numPuertas) {
         super(matricula, precioHora, marca, descripcion, color, bateria, estado, idCarnet, date, tablas);
         this.numPlazas = numPlazas;
         this.numPuertas = numPuertas;

@@ -6,7 +6,7 @@ public class Moto extends Vehiculo{
     private float velMax;
     private float cilindrada;
 
-    public Moto(String matricula, float precioHora, String marca, String descripcion, String color, float bateria, String estado, int idCarnet, Date date, Tablas tablas, float velMax, float cilindrada) {
+    public Moto(String matricula, float precioHora, String marca, String descripcion, String color, float bateria, String estado, String idCarnet, Date date, Tablas tablas, float velMax, float cilindrada) {
         super(matricula, precioHora, marca, descripcion, color, bateria, estado, idCarnet, date, tablas);
         this.velMax = velMax;
         this.cilindrada = cilindrada;
