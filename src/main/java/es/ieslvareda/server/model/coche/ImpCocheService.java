@@ -1,10 +1,7 @@
 package es.ieslvareda.server.model.coche;
 
 import com.mysql.cj.xdevapi.Type;
-import es.ieslvareda.model.Coche;
-import es.ieslvareda.model.MyDataSource;
-import es.ieslvareda.model.Result;
-import es.ieslvareda.model.Tablas;
+import es.ieslvareda.model.*;
 import es.ieslvareda.server.controllers.CocheController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +14,7 @@ public class ImpCocheService implements ICocheService{
     public Result<Coche> createCoche(Coche c) {
 
         String sql = "{call GESTIONVEHICULOS.insertarCoche(?,?,?,?,?,?,?,?,?,?,?)}";
-        boolean resultado = false;
+
         try(Connection con = MyDataSource.getMyOracleDataSource().getConnection();
             CallableStatement cs = con.prepareCall(sql)) {
 
@@ -30,50 +27,44 @@ public class ImpCocheService implements ICocheService{
             cs.setDate(7, c.getDate());
             cs.setString(8, c.getEstado());
             cs.setString(9, c.getIdCarnet());
-            cs.setFloat(10, numPlazas);
-            cs.setFloat(11, numPuertas);
+            cs.setFloat(10, c.getNumPlazas());
+            cs.setFloat(11, c.getNumPuertas());
 
-            resultado = cs.execute();
+            cs.execute();
+            return new Result.Success<>(200);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return new Result.Error(throwables.getErrorCode(), throwables.getMessage());
         }
-        if(resultado){
-            return new Result.Success<>(200);
-        }else{
-            return new Result.Error(404, "No se ha borrado ningún coche");
-        }
+
     }
 
     @Override
-    public Result<Coche> updateCoche(String matricula, float precioHora, String marca, String descripcion, String color, float bateria, Date fechaadq, String estado, String idCarnet, float numPlazas, float numPuertas) {
+    public Result<Coche> updateCoche(Coche c) {
         String sql = "{call GESTIONVEHICULOS.updateCoche(?,?,?,?,?,?,?,?,?,?,?)}";
 
-        boolean resultado = false;
         try(Connection con = MyDataSource.getMyOracleDataSource().getConnection();
             CallableStatement cs = con.prepareCall(sql)) {
 
-            cs.setString(1,matricula);
-            cs.setFloat(2,precioHora);
-            cs.setString(3,marca);
-            cs.setString(4, descripcion);
-            cs.setString(5, color);
-            cs.setFloat(6, bateria);
-            cs.setDate(7, fechaadq);
-            cs.setString(8, estado);
-            cs.setString(9, idCarnet);
-            cs.setFloat(10, numPlazas);
-            cs.setFloat(11, numPuertas);
+            cs.setString(1,c.getMatricula());
+            cs.setFloat(2,c.getPrecioHora());
+            cs.setString(3,c.getMarca());
+            cs.setString(4, c.getDescripcion());
+            cs.setString(5, c.getColor());
+            cs.setFloat(6, c.getBateria());
+            cs.setDate(7, c.getDate());
+            cs.setString(8, c.getEstado());
+            cs.setString(9, c.getIdCarnet());
+            cs.setFloat(10, c.getNumPlazas());
+            cs.setFloat(11, c.getNumPuertas());
 
-            resultado = cs.execute();
+            cs.execute();
+            return new Result.Success<>(200);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }
-        if(resultado){
-            return new Result.Success<>(200);
-        }else{
-            return new Result.Error(404, "No se ha borrado ningún coche");
+            return new Result.Error(throwables.getErrorCode(), throwables.getMessage());
         }
     }
 
@@ -131,7 +122,10 @@ public class ImpCocheService implements ICocheService{
             float v_numPuertas = cs.getFloat(11);
             Tablas tipo = Tablas.COCHE;
 
-            c = new Coche(v_matricula, v_precioHora, v_marca, v_descripcion, v_color, v_bateria, v_estado, v_idCarnet, date, tipo, v_numPlazas, v_numPuertas);
+            Color ca = Color.valueOf(v_color.toUpperCase());
+            Estado e = Estado.valueOf(v_estado.toUpperCase());
+
+            c = new Coche(v_matricula, v_precioHora, v_marca, v_descripcion, ca, v_bateria, e, v_idCarnet, date, tipo, v_numPlazas, v_numPuertas);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

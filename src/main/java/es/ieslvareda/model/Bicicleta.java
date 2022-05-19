@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Bicicleta extends Vehiculo{
     private String tipo;
 
-    public Bicicleta(String matricula, float precioHora, String marca, String descripcion, String color, float bateria, String estado, String idCarnet, Date date, Tablas tablas, String tipo) {
+    public Bicicleta(String matricula, float precioHora, String marca, String descripcion, Color color, float bateria, Estado estado, String idCarnet, Date date, Tablas tablas, String tipo) {
         super(matricula, precioHora, marca, descripcion, color, bateria, estado, idCarnet, date, tablas);
         this.tipo = tipo;
     }

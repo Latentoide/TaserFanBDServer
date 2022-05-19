@@ -19,10 +19,11 @@ public class MotoController {
     private static JsonTransformer<Moto> jsonTransformer = new JsonTransformer<>();
 
     public static Result insertarMoto(Request req, Response res){
+        logger.info("Peticion para añadir moto");
         String body = req.body();
 
         Moto c = jsonTransformer.getObjet(body, Moto.class);
-        Result result = service.createMoto(c.getMatricula(), c.getPrecioHora(), c.getMarca(), c.getDescripcion(), c.getColor(), c.getBateria(), c.getDate(), c.getEstado(), c.getIdCarnet(), c.getVelMax(), c.getCilindrada());
+        Result result = service.createMoto(c);
         if(result instanceof Result.Success)
             res.status(200);
         else {
@@ -33,10 +34,11 @@ public class MotoController {
     }
 
     public static Result updateMoto(Request req, Response res){
+        logger.info("Peticion para modificar moto");
         String body = req.body();
 
         Moto c = jsonTransformer.getObjet(body, Moto.class);
-        Result result = service.updateMoto(c.getMatricula(), c.getPrecioHora(), c.getMarca(), c.getDescripcion(), c.getColor(), c.getBateria(), c.getDate(), c.getEstado(), c.getIdCarnet(), c.getVelMax(), c.getCilindrada());
+        Result result = service.updateMoto(c);
         if(result instanceof Result.Success)
             res.status(200);
         else {
@@ -47,6 +49,7 @@ public class MotoController {
     }
 
     public static Result deleteMoto(Request req, Response res){
+        logger.info("Peticion para borrar moto");
         String body = req.body();
 
         Moto c = jsonTransformer.getObjet(body, Moto.class);
@@ -62,7 +65,7 @@ public class MotoController {
 
 
     public static Result<Coche> consultarMoto(Request req, Response res){
-
+        logger.info("Peticion para consultar moto");
         String matricula = req.queryParams("matricula");
 
         Result result = service.consultarMoto(matricula);

@@ -5,6 +5,7 @@ import es.ieslvareda.model.*;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -49,7 +50,10 @@ public class ImpVehiculoService implements IVehiculoService{
                 estado = resultSet.getString("estado");
                 idCarnet = resultSet.getString("idcarnet");
 
-                vehiculoArrayList.add(new Vehiculo(matricula, precioHora, marca, color, estado, idCarnet, tabla));
+                Color c = Color.valueOf(color.toUpperCase());
+                Estado e = Estado.valueOf(estado.toUpperCase());
+
+                vehiculoArrayList.add(new Vehiculo(matricula, precioHora, marca, c, e, idCarnet, tabla));
             }
         }catch(SQLException throwables){
             throwables.printStackTrace();

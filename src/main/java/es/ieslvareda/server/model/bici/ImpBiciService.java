@@ -6,63 +6,55 @@ import java.sql.*;
 
 public class ImpBiciService implements IBiciService{
     @Override
-    public Result<Bicicleta> createBicicleta(String matricula, float precioHora, String marca, String descripcion, String color, float bateria, Date fechaadq, String estado, String idCarnet, String tipo) {
+    public Result<Bicicleta> createBicicleta(Bicicleta b) {
         String sql = "{call GESTIONVEHICULOS.insertarBicicleta(?,?,?,?,?,?,?,?,?,?)}";
-        boolean resultado = false;
         try(Connection con = MyDataSource.getMyOracleDataSource().getConnection();
             CallableStatement cs = con.prepareCall(sql)) {
 
-            cs.setString(1,matricula);
-            cs.setFloat(2,precioHora);
-            cs.setString(3,marca);
-            cs.setString(4, descripcion);
-            cs.setString(5, color);
-            cs.setFloat(6, bateria);
-            cs.setDate(7, fechaadq);
-            cs.setString(8, estado);
-            cs.setString(9, idCarnet);
-            cs.setString(10, tipo);
+            cs.setString(1,b.getMatricula());
+            cs.setFloat(2,b.getPrecioHora());
+            cs.setString(3,b.getMarca());
+            cs.setString(4, b.getDescripcion());
+            cs.setString(5, b.getColor());
+            cs.setFloat(6, b.getBateria());
+            cs.setDate(7, b.getDate());
+            cs.setString(8, b.getEstado());
+            cs.setString(9, b.getIdCarnet());
+            cs.setString(10, b.getTipoBic());
 
-            resultado = cs.execute();
+            cs.execute();
+            return new Result.Success<>(200);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }
-        if(resultado){
-            return new Result.Success<>(200);
-        }else{
-            return new Result.Error(404, "No se ha borrado ninguna bicicleta");
+            return new Result.Error(throwables.getErrorCode(), throwables.getMessage());
         }
     }
 
     @Override
-    public Result<Bicicleta> updateBicicleta(String matricula, float precioHora, String marca, String descripcion, String color, float bateria, Date fechaadq, String estado, String idCarnet, String tipo) {
+    public Result<Bicicleta> updateBicicleta(Bicicleta b) {
         String sql = "{call GESTIONVEHICULOS.updateBicicleta(?,?,?,?,?,?,?,?,?,?)}";
 
-        boolean resultado = false;
         try(Connection con = MyDataSource.getMyOracleDataSource().getConnection();
             CallableStatement cs = con.prepareCall(sql)) {
 
-            cs.setString(1,matricula);
-            cs.setFloat(2,precioHora);
-            cs.setString(3,marca);
-            cs.setString(4, descripcion);
-            cs.setString(5, color);
-            cs.setFloat(6, bateria);
-            cs.setDate(7, fechaadq);
-            cs.setString(8, estado);
-            cs.setString(9, idCarnet);
-            cs.setString(10, tipo);
+            cs.setString(1,b.getMatricula());
+            cs.setFloat(2,b.getPrecioHora());
+            cs.setString(3,b.getMarca());
+            cs.setString(4, b.getDescripcion());
+            cs.setString(5, b.getColor());
+            cs.setFloat(6, b.getBateria());
+            cs.setDate(7, b.getDate());
+            cs.setString(8, b.getEstado());
+            cs.setString(9, b.getIdCarnet());
+            cs.setString(10, b.getTipoBic());
 
-            resultado = cs.execute();
+            cs.execute();
+            return new Result.Success<>(200);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }
-        if(resultado){
-            return new Result.Success<>(200);
-        }else{
-            return new Result.Error(404, "No se ha borrado ninguna bicicleta");
+            return new Result.Error(throwables.getErrorCode(), throwables.getMessage());
         }
     }
 
@@ -118,7 +110,10 @@ public class ImpBiciService implements IBiciService{
             String tipob = cs.getString(10);
             Tablas tipo = Tablas.BICICLETA;
 
-            c = new Bicicleta(v_matricula, v_precioHora, v_marca, v_descripcion, v_color, v_bateria, v_estado, v_idCarnet, date, tipo, tipob);
+            Color ca = Color.valueOf(v_color.toUpperCase());
+            Estado e = Estado.valueOf(v_estado.toUpperCase());
+
+            c = new Bicicleta(v_matricula, v_precioHora, v_marca, v_descripcion, ca, v_bateria, e, v_idCarnet, date, tipo, tipob);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

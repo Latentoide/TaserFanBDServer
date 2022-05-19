@@ -19,10 +19,11 @@ public class PatinController {
     private static JsonTransformer<Patin> jsonTransformer = new JsonTransformer<>();
 
     public static Result insertarPatin(Request req, Response res){
+        logger.info("Peticion para añadir patinete");
         String body = req.body();
 
         Patin c = jsonTransformer.getObjet(body, Patin.class);
-        Result result = service.createPatinete(c.getMatricula(), c.getPrecioHora(), c.getMarca(), c.getDescripcion(), c.getColor(), c.getBateria(), c.getDate(), c.getEstado(), c.getIdCarnet(), c.getNumRuedas(), c.getTamanyo());
+        Result result = service.createPatinete(c);
         if(result instanceof Result.Success)
             res.status(200);
         else {
@@ -33,10 +34,11 @@ public class PatinController {
     }
 
     public static Result updatePatin(Request req, Response res){
+        logger.info("Peticion para modificar patinete");
         String body = req.body();
 
         Patin c = jsonTransformer.getObjet(body, Patin.class);
-        Result result = service.updatePatinete(c.getMatricula(), c.getPrecioHora(), c.getMarca(), c.getDescripcion(), c.getColor(), c.getBateria(), c.getDate(), c.getEstado(), c.getIdCarnet(), c.getNumRuedas(), c.getTamanyo());
+        Result result = service.updatePatinete(c);
         if(result instanceof Result.Success)
             res.status(200);
         else {
@@ -47,6 +49,7 @@ public class PatinController {
     }
 
     public static Result deletePatin(Request req, Response res){
+        logger.info("Peticion para borrar patinete");
         String body = req.body();
 
         Patin c = jsonTransformer.getObjet(body, Patin.class);
@@ -62,7 +65,7 @@ public class PatinController {
 
 
     public static Result<Coche> consultarPatin(Request req, Response res){
-
+        logger.info("Peticion para consultar patinete");
         String matricula = req.queryParams("matricula");
 
         Result result = service.consultarPatinete(matricula);

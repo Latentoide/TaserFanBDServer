@@ -6,64 +6,57 @@ import java.sql.*;
 
 public class ImpMotoService implements IMotoService{
     @Override
-    public Result<Moto> createMoto(String matricula, float precioHora, String marca, String descripcion, String color, float bateria, Date fechaadq, String estado, String idCarnet, float velocidadMax, float cilindrada) {
+    public Result<Moto> createMoto(Moto m) {
         String sql = "{call GESTIONVEHICULOS.insertarMoto(?,?,?,?,?,?,?,?,?,?,?)}";
-        boolean resultado = false;
         try(Connection con = MyDataSource.getMyOracleDataSource().getConnection();
             CallableStatement cs = con.prepareCall(sql)) {
 
-            cs.setString(1,matricula);
-            cs.setFloat(2,precioHora);
-            cs.setString(3,marca);
-            cs.setString(4, descripcion);
-            cs.setString(5, color);
-            cs.setFloat(6, bateria);
-            cs.setDate(7, fechaadq);
-            cs.setString(8, estado);
-            cs.setString(9, idCarnet);
-            cs.setFloat(10, velocidadMax);
-            cs.setFloat(11, cilindrada);
+            cs.setString(1,m.getMatricula());
+            cs.setFloat(2,m.getPrecioHora());
+            cs.setString(3,m.getMarca());
+            cs.setString(4, m.getDescripcion());
+            cs.setString(5, m.getColor());
+            cs.setFloat(6, m.getBateria());
+            cs.setDate(7, m.getDate());
+            cs.setString(8, m.getEstado());
+            cs.setString(9, m.getIdCarnet());
+            cs.setFloat(10, m.getVelMax());
+            cs.setFloat(11, m.getCilindrada());
 
-            resultado = cs.execute();
+            cs.execute();
+            return new Result.Success<>(200);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }
-        if(resultado){
-            return new Result.Success<>(200);
-        }else{
-            return new Result.Error(404, "No se ha borrado ninguna moto");
+            return new Result.Error(throwables.getErrorCode(), throwables.getMessage());
         }
     }
 
     @Override
-    public Result<Moto> updateMoto(String matricula, float precioHora, String marca, String descripcion, String color, float bateria, Date fechaadq, String estado, String idCarnet, float velocidadMax, float cilindrada) {
+    public Result<Moto> updateMoto(Moto m) {
         String sql = "{call GESTIONVEHICULOS.updateMoto(?,?,?,?,?,?,?,?,?,?,?)}";
 
-        boolean resultado = false;
         try(Connection con = MyDataSource.getMyOracleDataSource().getConnection();
             CallableStatement cs = con.prepareCall(sql)) {
 
-            cs.setString(1,matricula);
-            cs.setFloat(2,precioHora);
-            cs.setString(3,marca);
-            cs.setString(4, descripcion);
-            cs.setString(5, color);
-            cs.setFloat(6, bateria);
-            cs.setDate(7, fechaadq);
-            cs.setString(8, estado);
-            cs.setString(9, idCarnet);
-            cs.setFloat(10, velocidadMax);
-            cs.setFloat(11, cilindrada);
-            resultado = cs.execute();
+            cs.setString(1,m.getMatricula());
+            cs.setFloat(2,m.getPrecioHora());
+            cs.setString(3,m.getMarca());
+            cs.setString(4, m.getDescripcion());
+            cs.setString(5, m.getColor());
+            cs.setFloat(6, m.getBateria());
+            cs.setDate(7, m.getDate());
+            cs.setString(8, m.getEstado());
+            cs.setString(9, m.getIdCarnet());
+            cs.setFloat(10, m.getVelMax());
+            cs.setFloat(11, m.getCilindrada());
+
+            cs.execute();
+            return new Result.Success<>(200);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }
-        if(resultado){
-            return new Result.Success<>(200);
-        }else{
-            return new Result.Error(404, "No se ha borrado ningún coche");
+            return new Result.Error(throwables.getErrorCode(), throwables.getMessage());
         }
     }
 
@@ -121,7 +114,10 @@ public class ImpMotoService implements IMotoService{
             float v_cilindrada = cs.getFloat(11);
             Tablas tipo = Tablas.MOTO;
 
-            c = new Moto(v_matricula, v_precioHora, v_marca, v_descripcion, v_color, v_bateria, v_estado, v_idCarnet, date, tipo, v_velMax, v_cilindrada);
+            Color ca = Color.valueOf(v_color.toUpperCase());
+            Estado e = Estado.valueOf(v_estado.toUpperCase());
+
+            c = new Moto(v_matricula, v_precioHora, v_marca, v_descripcion, ca, v_bateria, e, v_idCarnet, date, tipo, v_velMax, v_cilindrada);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

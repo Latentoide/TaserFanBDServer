@@ -7,14 +7,14 @@ public class Vehiculo {
     private float precioHora;
     private String marca;
     private String descripcion;
-    private String color;
+    private Color color;
     private float bateria;
-    private String estado;
+    private Estado estado;
     private String idCarnet;
     private Date date;
     private Tablas tipo;
 
-    public Vehiculo(String matricula, float precioHora, String marca, String descripcion, String color, float bateria, String estado, String idCarnet, Date date, Tablas tipo) {
+    public Vehiculo(String matricula, float precioHora, String marca, String descripcion, Color color, float bateria, Estado estado, String idCarnet, Date date, Tablas tipo) {
         this.matricula = matricula;
         this.precioHora = precioHora;
         this.marca = marca;
@@ -27,13 +27,14 @@ public class Vehiculo {
         this.tipo = tipo;
     }
 
-    public Vehiculo(String matricula,float precioHora,String marca,String color,String estado,String idCarnet, Tablas tipo){
+    public Vehiculo(String matricula,float precioHora,String marca,Color color,Estado estado,String idCarnet, Tablas tipo){
         this.matricula = matricula;
         this.precioHora = precioHora;
         this.marca = marca;
         this.color = color;
         this.idCarnet = idCarnet;
         this.tipo = tipo;
+        this.estado = estado;
     }
 
     public String getMatricula() {
@@ -69,10 +70,10 @@ public class Vehiculo {
     }
 
     public String getColor() {
-        return color;
+        return color.getColor();
     }
 
-    public void setColor(String color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 
@@ -85,10 +86,10 @@ public class Vehiculo {
     }
 
     public String getEstado() {
-        return estado;
+        return estado.getEstado();
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
 

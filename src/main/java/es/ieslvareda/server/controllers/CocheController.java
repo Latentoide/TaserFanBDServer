@@ -23,7 +23,7 @@ public class CocheController{
         String body = req.body();
 
         Coche c = jsonTransformer.getObjet(body, Coche.class);
-        Result result = service.createCoche(c.getMatricula(), c.getPrecioHora(), c.getMarca(), c.getDescripcion(), c.getColor(), c.getBateria(), c.getDate(), c.getEstado(), c.getIdCarnet(), c.getNumPlazas(), c.getNumPuertas());
+        Result result = service.createCoche(c);
         if(result instanceof Result.Success)
             res.status(200);
         else {
@@ -34,10 +34,11 @@ public class CocheController{
     }
 
     public static Result updateCoche(Request req, Response res){
+        logger.info("Peticion para modificar coche");
         String body = req.body();
 
         Coche c = jsonTransformer.getObjet(body, Coche.class);
-        Result result = service.updateCoche(c.getMatricula(), c.getPrecioHora(), c.getMarca(), c.getDescripcion(), c.getColor(), c.getBateria(), c.getDate(), c.getEstado(), c.getIdCarnet(), c.getNumPlazas(), c.getNumPuertas());
+        Result result = service.updateCoche(c);
         if(result instanceof Result.Success)
             res.status(200);
         else {
@@ -48,6 +49,7 @@ public class CocheController{
     }
 
     public static Result deleteCoche(Request req, Response res){
+        logger.info("Peticion para borrar coche");
         String body = req.body();
 
         Coche c = jsonTransformer.getObjet(body, Coche.class);
@@ -63,7 +65,7 @@ public class CocheController{
 
 
     public static Result<Coche> consultarCoche(Request req, Response res){
-
+        logger.info("Peticion para consultar coche");
         String matricula = req.queryParams("matricula");
 
         Result result = service.consultarCoche(matricula);

@@ -19,10 +19,11 @@ public class BicicletaController {
     private static JsonTransformer<Bicicleta> jsonTransformer = new JsonTransformer<>();
 
     public static Result insertarBicicleta(Request req, Response res){
+        logger.info("Peticion para añadir bicicleta");
         String body = req.body();
 
         Bicicleta c = jsonTransformer.getObjet(body, Bicicleta.class);
-        Result result = service.createBicicleta(c.getMatricula(), c.getPrecioHora(), c.getMarca(), c.getDescripcion(), c.getColor(), c.getBateria(), c.getDate(), c.getEstado(), c.getIdCarnet(), c.getTipoBic());
+        Result result = service.createBicicleta(c);
         if(result instanceof Result.Success)
             res.status(200);
         else {
@@ -33,10 +34,11 @@ public class BicicletaController {
     }
 
     public static Result updateBicicleta(Request req, Response res){
+        logger.info("Peticion para modificar bicicleta");
         String body = req.body();
 
         Bicicleta c = jsonTransformer.getObjet(body, Bicicleta.class);
-        Result result = service.updateBicicleta(c.getMatricula(), c.getPrecioHora(), c.getMarca(), c.getDescripcion(), c.getColor(), c.getBateria(), c.getDate(), c.getEstado(), c.getIdCarnet(), c.getTipoBic());
+        Result result = service.updateBicicleta(c);
         if(result instanceof Result.Success)
             res.status(200);
         else {
@@ -47,6 +49,7 @@ public class BicicletaController {
     }
 
     public static Result deleteBicicleta(Request req, Response res){
+        logger.info("Peticion para borrar bicicleta");
         String body = req.body();
 
         Bicicleta c = jsonTransformer.getObjet(body, Bicicleta.class);
@@ -62,7 +65,7 @@ public class BicicletaController {
 
 
     public static Result<Coche> consultarBicicleta(Request req, Response res){
-
+        logger.info("Peticion para consultar bicicleta");
         String matricula = req.queryParams("matricula");
 
         Result result = service.consultarBicicleta(matricula);

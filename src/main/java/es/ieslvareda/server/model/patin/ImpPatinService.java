@@ -6,65 +6,57 @@ import java.sql.*;
 
 public class ImpPatinService implements IPatinService{
     @Override
-    public Result<Patin> createPatinete(String matricula, float precioHora, String marca, String descripcion, String color, float bateria, Date fechaadq, String estado, String idCarnet, float numruedas, float tamanyo) {
+    public Result<Patin> createPatinete(Patin p) {
         String sql = "{call GESTIONVEHICULOS.insertarPatinete(?,?,?,?,?,?,?,?,?,?,?)}";
-        boolean resultado = false;
         try(Connection con = MyDataSource.getMyOracleDataSource().getConnection();
             CallableStatement cs = con.prepareCall(sql)) {
 
-            cs.setString(1,matricula);
-            cs.setFloat(2,precioHora);
-            cs.setString(3,marca);
-            cs.setString(4, descripcion);
-            cs.setString(5, color);
-            cs.setFloat(6, bateria);
-            cs.setDate(7, fechaadq);
-            cs.setString(8, estado);
-            cs.setString(9, idCarnet);
-            cs.setFloat(10, numruedas);
-            cs.setFloat(11, tamanyo);
+            cs.setString(1,p.getMatricula());
+            cs.setFloat(2,p.getPrecioHora());
+            cs.setString(3,p.getMarca());
+            cs.setString(4, p.getDescripcion());
+            cs.setString(5, p.getColor());
+            cs.setFloat(6, p.getBateria());
+            cs.setDate(7, p.getDate());
+            cs.setString(8, p.getEstado());
+            cs.setString(9, p.getIdCarnet());
+            cs.setFloat(10, p.getNumRuedas());
+            cs.setFloat(11, p.getTamanyo());
 
-            resultado = cs.execute();
+            cs.execute();
+            return new Result.Success<>(200);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }
-        if(resultado){
-            return new Result.Success<>(200);
-        }else{
-            return new Result.Error(404, "No se ha borrado ningún patinete");
+            return new Result.Error(throwables.getErrorCode(), throwables.getMessage());
         }
     }
 
     @Override
-    public Result<Patin> updatePatinete(String matricula, float precioHora, String marca, String descripcion, String color, float bateria, Date fechaadq, String estado, String idCarnet, float numruedas, float tamanyo) {
+    public Result<Patin> updatePatinete(Patin p) {
         String sql = "{call GESTIONVEHICULOS.updatePatinete(?,?,?,?,?,?,?,?,?,?,?)}";
 
-        boolean resultado = false;
         try(Connection con = MyDataSource.getMyOracleDataSource().getConnection();
             CallableStatement cs = con.prepareCall(sql)) {
 
-            cs.setString(1,matricula);
-            cs.setFloat(2,precioHora);
-            cs.setString(3,marca);
-            cs.setString(4, descripcion);
-            cs.setString(5, color);
-            cs.setFloat(6, bateria);
-            cs.setDate(7, fechaadq);
-            cs.setString(8, estado);
-            cs.setString(9, idCarnet);
-            cs.setFloat(10, numruedas);
-            cs.setFloat(11, tamanyo);
+            cs.setString(1,p.getMatricula());
+            cs.setFloat(2,p.getPrecioHora());
+            cs.setString(3,p.getMarca());
+            cs.setString(4, p.getDescripcion());
+            cs.setString(5, p.getColor());
+            cs.setFloat(6, p.getBateria());
+            cs.setDate(7, p.getDate());
+            cs.setString(8, p.getEstado());
+            cs.setString(9, p.getIdCarnet());
+            cs.setFloat(10, p.getNumRuedas());
+            cs.setFloat(11, p.getTamanyo());
 
-            resultado = cs.execute();
+            cs.execute();
+            return new Result.Success<>(200);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }
-        if(resultado){
-            return new Result.Success<>(200);
-        }else{
-            return new Result.Error(404, "No se ha borrado ningún patinete");
+            return new Result.Error(throwables.getErrorCode(), throwables.getMessage());
         }
     }
 
@@ -122,7 +114,10 @@ public class ImpPatinService implements IPatinService{
             float v_tamanyo = cs.getFloat(11);
             Tablas tipo = Tablas.PATINETE;
 
-            c = new Patin(v_matricula, v_precioHora, v_marca, v_descripcion, v_color, v_bateria, v_estado, v_idCarnet, date, tipo, v_numruedas, v_tamanyo);
+            Color ca = Color.valueOf(v_color.toUpperCase());
+            Estado e = Estado.valueOf(v_estado.toUpperCase());
+
+            c = new Patin(v_matricula, v_precioHora, v_marca, v_descripcion, ca, v_bateria, e, v_idCarnet, date, tipo, v_numruedas, v_tamanyo);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
