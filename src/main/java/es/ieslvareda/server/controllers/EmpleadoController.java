@@ -21,7 +21,7 @@ public class EmpleadoController {
         //System.out.println(res);
         String body = req.body();
         System.out.println(body);
-        Authentification a = jsonTransformer.getObjet(body, Authentification.class);
+        Authentification a = jsonTransformer.getObject(body, Authentification.class);
         Result result = service.autenticar(a);
         if(result instanceof Result.Success)
             res.status(200);

@@ -4,14 +4,10 @@ import es.ieslvareda.model.*;
 import es.ieslvareda.server.model.JsonTransformer;
 import es.ieslvareda.server.model.coche.ICocheService;
 import es.ieslvareda.server.model.coche.ImpCocheService;
-import es.ieslvareda.server.model.vehiculo.IVehiculoService;
-import es.ieslvareda.server.model.vehiculo.ImpVehiculoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Request;
 import spark.Response;
-
-import java.sql.*;
 
 public class CocheController{
     static Logger logger = LoggerFactory.getLogger(CocheController.class);
@@ -22,7 +18,7 @@ public class CocheController{
         logger.info("Peticion para añadir coche");
         String body = req.body();
 
-        Coche c = jsonTransformer.getObjet(body, Coche.class);
+        Coche c = jsonTransformer.getObject(body, Coche.class);
         Result result = service.createCoche(c);
         if(result instanceof Result.Success)
             res.status(200);
@@ -37,7 +33,7 @@ public class CocheController{
         logger.info("Peticion para modificar coche");
         String body = req.body();
 
-        Coche c = jsonTransformer.getObjet(body, Coche.class);
+        Coche c = jsonTransformer.getObject(body, Coche.class);
         Result result = service.updateCoche(c);
         if(result instanceof Result.Success)
             res.status(200);
@@ -52,7 +48,7 @@ public class CocheController{
         logger.info("Peticion para borrar coche");
         String body = req.body();
 
-        Coche c = jsonTransformer.getObjet(body, Coche.class);
+        Coche c = jsonTransformer.getObject(body, Coche.class);
         Result result = service.deleteCoche(c.getMatricula());
         if(result instanceof Result.Success)
             res.status(200);

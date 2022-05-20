@@ -6,8 +6,6 @@ import es.ieslvareda.model.Result;
 import es.ieslvareda.server.model.JsonTransformer;
 import es.ieslvareda.server.model.bici.IBiciService;
 import es.ieslvareda.server.model.bici.ImpBiciService;
-import es.ieslvareda.server.model.coche.ICocheService;
-import es.ieslvareda.server.model.coche.ImpCocheService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Request;
@@ -22,7 +20,7 @@ public class BicicletaController {
         logger.info("Peticion para añadir bicicleta");
         String body = req.body();
 
-        Bicicleta c = jsonTransformer.getObjet(body, Bicicleta.class);
+        Bicicleta c = jsonTransformer.getObject(body, Bicicleta.class);
         Result result = service.createBicicleta(c);
         if(result instanceof Result.Success)
             res.status(200);
@@ -37,7 +35,7 @@ public class BicicletaController {
         logger.info("Peticion para modificar bicicleta");
         String body = req.body();
 
-        Bicicleta c = jsonTransformer.getObjet(body, Bicicleta.class);
+        Bicicleta c = jsonTransformer.getObject(body, Bicicleta.class);
         Result result = service.updateBicicleta(c);
         if(result instanceof Result.Success)
             res.status(200);
@@ -52,7 +50,7 @@ public class BicicletaController {
         logger.info("Peticion para borrar bicicleta");
         String body = req.body();
 
-        Bicicleta c = jsonTransformer.getObjet(body, Bicicleta.class);
+        Bicicleta c = jsonTransformer.getObject(body, Bicicleta.class);
         Result result = service.deleteBicicleta(c.getMatricula());
         if(result instanceof Result.Success)
             res.status(200);

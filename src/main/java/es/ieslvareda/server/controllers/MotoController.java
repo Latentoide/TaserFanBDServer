@@ -4,8 +4,6 @@ import es.ieslvareda.model.Coche;
 import es.ieslvareda.model.Moto;
 import es.ieslvareda.model.Result;
 import es.ieslvareda.server.model.JsonTransformer;
-import es.ieslvareda.server.model.coche.ICocheService;
-import es.ieslvareda.server.model.coche.ImpCocheService;
 import es.ieslvareda.server.model.moto.IMotoService;
 import es.ieslvareda.server.model.moto.ImpMotoService;
 import org.slf4j.Logger;
@@ -22,7 +20,7 @@ public class MotoController {
         logger.info("Peticion para añadir moto");
         String body = req.body();
 
-        Moto c = jsonTransformer.getObjet(body, Moto.class);
+        Moto c = jsonTransformer.getObject(body, Moto.class);
         Result result = service.createMoto(c);
         if(result instanceof Result.Success)
             res.status(200);
@@ -37,7 +35,7 @@ public class MotoController {
         logger.info("Peticion para modificar moto");
         String body = req.body();
 
-        Moto c = jsonTransformer.getObjet(body, Moto.class);
+        Moto c = jsonTransformer.getObject(body, Moto.class);
         Result result = service.updateMoto(c);
         if(result instanceof Result.Success)
             res.status(200);
@@ -52,7 +50,7 @@ public class MotoController {
         logger.info("Peticion para borrar moto");
         String body = req.body();
 
-        Moto c = jsonTransformer.getObjet(body, Moto.class);
+        Moto c = jsonTransformer.getObject(body, Moto.class);
         Result result = service.deleteMoto(c.getMatricula());
         if(result instanceof Result.Success)
             res.status(200);

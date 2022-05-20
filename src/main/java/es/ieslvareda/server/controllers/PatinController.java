@@ -4,8 +4,6 @@ import es.ieslvareda.model.Coche;
 import es.ieslvareda.model.Patin;
 import es.ieslvareda.model.Result;
 import es.ieslvareda.server.model.JsonTransformer;
-import es.ieslvareda.server.model.coche.ICocheService;
-import es.ieslvareda.server.model.coche.ImpCocheService;
 import es.ieslvareda.server.model.patin.IPatinService;
 import es.ieslvareda.server.model.patin.ImpPatinService;
 import org.slf4j.Logger;
@@ -22,7 +20,7 @@ public class PatinController {
         logger.info("Peticion para añadir patinete");
         String body = req.body();
 
-        Patin c = jsonTransformer.getObjet(body, Patin.class);
+        Patin c = jsonTransformer.getObject(body, Patin.class);
         Result result = service.createPatinete(c);
         if(result instanceof Result.Success)
             res.status(200);
@@ -37,7 +35,7 @@ public class PatinController {
         logger.info("Peticion para modificar patinete");
         String body = req.body();
 
-        Patin c = jsonTransformer.getObjet(body, Patin.class);
+        Patin c = jsonTransformer.getObject(body, Patin.class);
         Result result = service.updatePatinete(c);
         if(result instanceof Result.Success)
             res.status(200);
@@ -52,7 +50,7 @@ public class PatinController {
         logger.info("Peticion para borrar patinete");
         String body = req.body();
 
-        Patin c = jsonTransformer.getObjet(body, Patin.class);
+        Patin c = jsonTransformer.getObject(body, Patin.class);
         Result result = service.deletePatinete(c.getMatricula());
         if(result instanceof Result.Success)
             res.status(200);

@@ -13,7 +13,7 @@ public class JsonTransformer<T> implements ResponseTransformer {
         return gson.toJson(model);
     }
 
-    public T getObjet(String json, Class<T> clazz){
+    public T getObject(String json, Class<T> clazz){
         return gson.fromJson(json,clazz);
     }
 }
