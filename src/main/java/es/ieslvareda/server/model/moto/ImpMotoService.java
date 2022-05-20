@@ -114,8 +114,45 @@ public class ImpMotoService implements IMotoService{
             float v_cilindrada = cs.getFloat(11);
             Tablas tipo = Tablas.MOTO;
 
-            Color ca = Color.valueOf(v_color.toUpperCase());
-            Estado e = Estado.valueOf(v_estado.toUpperCase());
+            Color ca = Color.NEGRO;
+            Estado e = Estado.PREPARADO;
+            switch (v_color){
+                case "verde":
+                    ca = Color.VERDE;
+                    break;
+                case "amarillo":
+                    ca = Color.AMARILLO;
+                    break;
+                case "rojo":
+                    ca = Color.ROJO;
+                    break;
+                case "blanco":
+                    ca = Color.BLANCO;
+                    break;
+                case "negro":
+                    ca = Color.NEGRO;
+                    break;
+                case "azul":
+                    ca = Color.AZUL;
+                    break;
+            }
+            switch (v_estado){
+                case "preparado":
+                    e = Estado.PREPARADO;
+                    break;
+                case "baja":
+                    e = Estado.BAJA;
+                    break;
+                case "taller":
+                    e = Estado.TALLER;
+                    break;
+                case "reservado":
+                    e = Estado.RESERVADO;
+                    break;
+                case "alquilado":
+                    e = Estado.ALQUILADO;
+                    break;
+            }
 
             c = new Moto(v_matricula, v_precioHora, v_marca, v_descripcion, ca, v_bateria, e, v_idCarnet, date, tipo, v_velMax, v_cilindrada);
 
