@@ -29,15 +29,16 @@ public class ImpVehiculoService implements IVehiculoService {
     public List<Vehiculo> getAll(Tablas tabla) {
         List<Vehiculo> vehiculoArrayList = new ArrayList<>();
         DataSource ds = MyDataSource.getMyOracleDataSource();
-        String query = "{call GESTIONVEHICULOS.listarvehiculos('" + tabla + "', ?)}";
-        ResultSet resultSet = null;
+        String query = "{call GESTIONVEHICULOS.listarvehiculos(?, ?)}";
+        ResultSet resultSet;
         try (Connection con = ds.getConnection();
              CallableStatement st = con.prepareCall(query);
         ) {
-            st.registerOutParameter(1, OracleTypes.CURSOR);
+            st.setString(1, tabla.getStr());
+            st.registerOutParameter(2, OracleTypes.CURSOR);
             st.execute();
 
-            resultSet = (ResultSet) st.getObject(1);
+            resultSet = (ResultSet) st.getObject(2);
             while (resultSet.next()) {
                 String matricula;
                 float precioHora;
@@ -46,12 +47,12 @@ public class ImpVehiculoService implements IVehiculoService {
                 String estado;
                 String idCarnet;
                 while (resultSet.next()) {
-                    matricula = resultSet.getString("MATRICULA");
-                    precioHora = resultSet.getFloat("precioHora");
-                    marca = resultSet.getString("marca");
-                    color = resultSet.getString("color").toLowerCase();
-                    estado = resultSet.getString("estado").toLowerCase();
-                    idCarnet = resultSet.getString("idcarnet");
+                    matricula = resultSet.getString("c1");
+                    precioHora = resultSet.getFloat("n1");
+                    marca = resultSet.getString("c2");
+                    color = resultSet.getString("c4").toLowerCase();
+                    estado = resultSet.getString("c6").toLowerCase();
+                    idCarnet = resultSet.getString("c8");
                     Color c = Color.NEGRO;
                     Estado e = Estado.PREPARADO;
                     switch (color) {

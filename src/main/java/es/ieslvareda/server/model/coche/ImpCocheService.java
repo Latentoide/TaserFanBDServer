@@ -19,7 +19,7 @@ public class ImpCocheService implements ICocheService{
             CallableStatement cs = con.prepareCall(sql)) {
 
             cs.setString(1,c.getMatricula());
-            cs.setFloat(2,c.getPrecioHora());
+            cs.setDouble(2,c.getPrecioHora());
             cs.setString(3,c.getMarca());
             cs.setString(4, c.getDescripcion());
             cs.setString(5, c.getColor());
